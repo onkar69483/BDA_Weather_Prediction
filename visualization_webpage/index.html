@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌪️ Storm Prediction Visualizations Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-card.green {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        .metric-card.blue {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-color: #4ecdc4;
+        }
+
+        .card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .card-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            background: linear-gradient(45deg, #44a08d, #4ecdc4);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌪️ Storm Prediction Model Dashboard</h1>
+            <p>Interactive Visualizations for Weather Prediction Analysis</p>
+            
+            <div class="metrics">
+                <div class="metric-card green">
+                    <div class="metric-value">89.52%</div>
+                    <div class="metric-label">Overall Accuracy</div>
+                </div>
+                <div class="metric-card blue">
+                    <div class="metric-value">89.52%</div>
+                    <div class="metric-label">F1 Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2,901</div>
+                    <div class="metric-label">Total Predictions</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- 3D Confusion Matrix -->
+            <div class="card" onclick="openVisualization('3d_confusion_matrix.html')">
+                <h3>🎯 3D Confusion Matrix</h3>
+                <p>Interactive 3D visualization showing how well the model predicts different storm severity levels across three dimensions.</p>
+                <a href="3d_confusion_matrix.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Animated Alerts -->
+            <div class="card" onclick="openVisualization('animated_alerts.html')">
+                <h3>🎭 Animated Alert Distribution</h3>
+                <p>Time-based animation showing how storm alerts evolve over different periods with smooth transitions.</p>
+                <a href="animated_alerts.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Storm Heatmap -->
+            <div class="card" onclick="openVisualization('storm_heatmap.html')">
+                <h3>🗺️ Geographic Heatmap</h3>
+                <p>Interactive map showing storm density and intensity across different geographical regions with heat intensity layers.</p>
+                <a href="storm_heatmap.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Performance Radar -->
+            <div class="card" onclick="openVisualization('performance_radar.html')">
+                <h3>📡 Performance Radar Chart</h3>
+                <p>Radar/spider chart displaying multiple performance metrics in a circular format for easy comparison.</p>
+                <a href="performance_radar.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Alert Streamgraph -->
+            <div class="card" onclick="openVisualization('alert_streamgraph.html')">
+                <h3>🌊 Alert Streamgraph</h3>
+                <p>Beautiful flowing visualization showing trends and patterns in storm alert data over time.</p>
+                <a href="alert_streamgraph.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Sunburst Hierarchy -->
+            <div class="card" onclick="openVisualization('sunburst_hierarchy.html')">
+                <h3>☀️ Hierarchy Sunburst</h3>
+                <p>Hierarchical sunburst chart showing the relationship between different alert categories and their distributions.</p>
+                <a href="sunburst_hierarchy.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Neural Dashboard -->
+            <div class="card" onclick="openVisualization('neural_dashboard.html')">
+                <h3>🧠 Neural Dashboard</h3>
+                <p>Comprehensive multi-panel dashboard inspired by neural networks showing various model metrics and performance indicators.</p>
+                <a href="neural_dashboard.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+
+            <!-- Performance Gauges -->
+            <div class="card" onclick="openVisualization('performance_gauges.html')">
+                <h3>📊 Performance Gauges</h3>
+                <p>Real-time style gauge meters displaying accuracy, F1-score, and other key performance indicators.</p>
+                <a href="performance_gauges.html" class="card-link" target="_blank">Open Visualization</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🌩️ Storm Prediction Model | Accuracy: 89.52% | Built with Machine Learning</p>
+            <p>All visualizations are interactive - click on any card to explore the data!</p>
+        </div>
+    </div>
+
+    <script>
+        function openVisualization(url) {
+            window.open(url, '_blank');
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.opacity = '0';
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
